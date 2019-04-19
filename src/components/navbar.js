@@ -1,6 +1,17 @@
 import React, { Component } from "react";
+import * as firebase from "firebase";
+import profilePic from "./images/profile_placeholder.png";
 
 export default class navbar extends Component {
+  signIn = () => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
+  };
+
+  signOut = () => {
+    firebase.auth().signOut();
+  };
+
   render() {
     return (
       <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
