@@ -22,7 +22,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>PC Chatting</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -52,4 +52,17 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDR2YNy-GGUHiex_wKjKVvdfR6lEOxScvQ",
+      authDomain: "chatting-45431.firebaseapp.com",
+      databaseURL: "https://chatting-45431.firebaseio.com",
+      projectId: "chatting-45431",
+      storageBucket: "chatting-45431.appspot.com",
+      messagingSenderId: "753331631541"
+    };
+    firebase.initializeApp(config);
+  </script>
 </html>
