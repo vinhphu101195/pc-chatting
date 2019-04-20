@@ -1,31 +1,24 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
 import profilePic from "./images/profile_placeholder.png";
+import config from "./config/config";
 
 export default class navbar extends Component {
-  config = {
-    apiKey: "AIzaSyDR2YNy-GGUHiex_wKjKVvdfR6lEOxScvQ",
-    authDomain: "chatting-45431.firebaseapp.com",
-    databaseURL: "https://chatting-45431.firebaseio.com",
-    projectId: "chatting-45431",
-    storageBucket: "chatting-45431.appspot.com",
-    messagingSenderId: "753331631541"
-  };
   signIn = () => {
-    firebase.initializeApp(this.config);
+    firebase.initializeApp(config);
 
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider);
   };
 
   signOut = () => {
-    firebase.initializeApp(this.config);
+    firebase.initializeApp(config);
 
     firebase.auth().signOut();
   };
 
   render() {
-    console.log(this.config);
+    console.log(config);
 
     return (
       <header className="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
