@@ -5,7 +5,7 @@
 /node_modules
 /.pnp
 .pnp.js
-/src/components/config/*
+src/components/config/*
 
 
 # testing
