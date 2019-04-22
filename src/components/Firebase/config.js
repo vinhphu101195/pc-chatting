@@ -1,4 +1,4 @@
-// import firebase, { app } from "firebase";
+import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
 import app from "firebase/app";
@@ -22,7 +22,7 @@ class Firebase {
     this.auth = app.auth();
   }
 
-  provider = new this.auth.GoogleAuthProvider();
+  provider = new firebase.auth.GoogleAuthProvider();
 
   doSignInWithGmail = () => {
     this.auth.signInWithPopup(this.provider);

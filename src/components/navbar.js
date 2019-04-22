@@ -4,48 +4,6 @@ import profilePic from "./images/profile_placeholder.png";
 import { FirebaseContext } from "./Firebase";
 
 export default class navbar extends Component {
-  state = {
-    trachAuth: false,
-    name: "",
-    pic: ""
-  };
-  signIn = () => {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
-    this.setState({ trachAuth: true });
-  };
-
-  signOut = () => {
-    firebase.auth().signOut();
-    this.setState({ trachAuth: false });
-  };
-
-  initFirebaseAuth = () => {
-    firebase.auth().onAuthStateChanged(this.authStateObserver);
-  };
-
-  authStateObserver = user => {
-    if (user) {
-      this.setState({
-        trachAuth: true,
-        name: this.getUserName(),
-        pic: this.getProfilePicUrl()
-      });
-    }
-  };
-
-  getUserName = () => {
-    return firebase.auth().currentUser.displayName;
-  };
-
-  getProfilePicUrl = () => {
-    return firebase.auth().currentUser.photoURL || profilePic;
-  };
-
-  isUserSignedIn = () => {
-    return !!firebase.auth().currentUser;
-  };
-
   render() {
     console.log();
 
@@ -64,24 +22,22 @@ export default class navbar extends Component {
                 <div id="user-container">
                   <div hidden id="user-pic" />
                   <div hidden id="user-name" />
-                  {this.state.trachAuth === false ? (
-                    <button
-                      id="sign-in"
-                      className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
-                      onClick={() => this.signIn()}
-                    >
-                      <i className="material-icons">account_circle</i>Sign-in
-                      with Google
-                    </button>
-                  ) : (
-                    <button
-                      id="sign-out"
-                      className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
-                      onClick={() => this.signOut()}
-                    >
-                      Sign-out
-                    </button>
-                  )}
+                  <button
+                    id="sign-in"
+                    className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
+                    onClick={() => this.signIn()}
+                  >
+                    <i className="material-icons">account_circle</i>Sign-in with
+                    Google
+                  </button>
+                  <button
+                    hidden
+                    id="sign-out"
+                    className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
+                    onClick={() => this.signOut()}
+                  >
+                    Sign-out
+                  </button>
                 </div>
               </div>
             </header>
