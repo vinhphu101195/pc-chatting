@@ -22,9 +22,9 @@ class Firebase {
     this.auth = app.auth();
   }
 
-  // doSignInWithGmail = provider => {
-  //   this.auth.signInWithPopup(provider);
-  // };
+  doSignInWithGmail = provider => {
+    this.auth.signInWithPopup(provider);
+  };
 
   doSignOut = () => this.auth.signOut();
 }

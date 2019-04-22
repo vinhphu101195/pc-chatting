@@ -4,12 +4,12 @@ import profilePic from "./images/profile_placeholder.png";
 import { FirebaseContext } from "./Firebase";
 import firebase from "firebase";
 
-export default class navbar extends Component {
+class navbar extends Component {
   SignIn = event => {
     var provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(provider);
-    console.log(provider);
+    this.props.firebase.doSignInWithGmail(provider);
+    console.log(this.props);
 
     event.preventDefault();
   };
@@ -55,3 +55,5 @@ export default class navbar extends Component {
     );
   }
 }
+
+export default withFirebase(navbar);
