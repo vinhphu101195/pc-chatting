@@ -1,7 +1,7 @@
-import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
 import app from "firebase/app";
+import firebase from "firebase";
 
 const config = {
   apiKey: "AIzaSyDR2YNy-GGUHiex_wKjKVvdfR6lEOxScvQ",
@@ -22,11 +22,9 @@ class Firebase {
     this.auth = app.auth();
   }
 
-  provider = new firebase.auth.GoogleAuthProvider();
-
-  doSignInWithGmail = () => {
-    this.auth.signInWithPopup(this.provider);
-  };
+  // doSignInWithGmail = provider => {
+  //   this.auth.signInWithPopup(provider);
+  // };
 
   doSignOut = () => this.auth.signOut();
 }

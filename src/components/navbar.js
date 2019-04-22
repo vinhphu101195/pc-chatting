@@ -1,12 +1,20 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
+import { withFirebase } from "../components/Firebase";
 import profilePic from "./images/profile_placeholder.png";
 import { FirebaseContext } from "./Firebase";
+import firebase from "firebase";
 
 export default class navbar extends Component {
-  render() {
-    console.log();
+  SignIn = event => {
+    var provider = new firebase.auth.GoogleAuthProvider();
 
+    firebase.auth().signInWithPopup(provider);
+    console.log(provider);
+
+    event.preventDefault();
+  };
+
+  render() {
     return (
       <FirebaseContext.Consumer>
         {firebase => {
@@ -25,7 +33,7 @@ export default class navbar extends Component {
                   <button
                     id="sign-in"
                     className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
-                    onClick={() => this.signIn()}
+                    onClick={event => this.SignIn(event)}
                   >
                     <i className="material-icons">account_circle</i>Sign-in with
                     Google
