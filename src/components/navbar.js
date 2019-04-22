@@ -14,6 +14,10 @@ class navbar extends Component {
     event.preventDefault();
   };
 
+  SignOut = event => {
+    this.props.firebase.doSignOut();
+  };
+
   render() {
     return (
       <FirebaseContext.Consumer>
