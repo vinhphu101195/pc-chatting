@@ -3,7 +3,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import app from "firebase/app";
 
-var config = {
+const config = {
   apiKey: "AIzaSyDR2YNy-GGUHiex_wKjKVvdfR6lEOxScvQ",
   authDomain: "chatting-45431.firebaseapp.com",
   databaseURL: "https://chatting-45431.firebaseio.com",
@@ -18,7 +18,17 @@ var config = {
 class Firebase {
   constructor() {
     app.initializeApp(config);
+
+    this.auth = app.auth();
   }
+
+  provider = new this.auth.GoogleAuthProvider();
+
+  doSignInWithGmail = () => {
+    this.auth.signInWithPopup(this.provider);
+  };
+
+  doSignOut = () => this.auth.signOut();
 }
 
 export default Firebase;
