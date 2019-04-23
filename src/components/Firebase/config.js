@@ -27,6 +27,21 @@ class Firebase {
   };
 
   doSignOut = () => this.auth.signOut();
+
+  saveMessage(dataobject) {
+    return firebase
+      .firestore()
+      .collection("message")
+      .add({
+        name: dataobject.name,
+        text: dataobject.messageText,
+        img: dataobject.img,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .catch(function(error) {
+        console.error("Error writing new message to Firebase Database", error);
+      });
+  }
 }
 
 export default Firebase;

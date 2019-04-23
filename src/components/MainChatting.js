@@ -1,7 +1,13 @@
 import React, { Component } from "react";
+import { FirebaseContext } from "./Firebase";
+import firebase from "firebase";
+import { withFirebase } from "../components/Firebase";
 
-export default class MainChatting extends Component {
+class MainChatting extends Component {
   render() {
+    console.log(firebase.auth());
+    console.log(this.props.firebase);
+
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div
@@ -64,3 +70,5 @@ export default class MainChatting extends Component {
     );
   }
 }
+
+export default withFirebase(MainChatting);
