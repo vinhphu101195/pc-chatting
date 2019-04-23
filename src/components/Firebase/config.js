@@ -2,6 +2,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import app from "firebase/app";
 import firebase from "firebase";
+import profilePic from "../images/profile_placeholder.png";
 
 const config = {
   apiKey: "AIzaSyDR2YNy-GGUHiex_wKjKVvdfR6lEOxScvQ",
@@ -34,9 +35,12 @@ class Firebase {
       .collection("message")
       .add({
         name: dataobject.name,
-        text: dataobject.messageText,
+        text: dataobject.text,
         img: dataobject.img,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        console.log("success");
       })
       .catch(function(error) {
         console.error("Error writing new message to Firebase Database", error);

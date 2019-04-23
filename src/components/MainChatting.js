@@ -2,11 +2,26 @@ import React, { Component } from "react";
 import { FirebaseContext } from "./Firebase";
 import firebase from "firebase";
 import { withFirebase } from "../components/Firebase";
+import profilePic from "./images/profile_placeholder.png";
 
 class MainChatting extends Component {
+  state = {
+    authUser: this.props.infor.authUser,
+    img: this.props.infor.img,
+    name: this.props.infor.name,
+    text: ""
+  };
+
+  submitMessage = dataMessage => {
+    this.props.firebase.saveMessage(dataMessage);
+  };
+
   render() {
-    console.log(firebase.auth());
-    console.log(this.props.firebase);
+    var message = {
+      name: "tao la moi la phu ne",
+      text: "hello lai m nha",
+      img: profilePic
+    };
 
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
@@ -33,9 +48,9 @@ class MainChatting extends Component {
                 </div>
                 <button
                   id="submit"
-                  disabled
                   type="submit"
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                  onClick={() => this.submitMessage(message)}
                 >
                   Send
                 </button>
