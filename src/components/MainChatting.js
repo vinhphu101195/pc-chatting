@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { FirebaseContext } from "./Firebase";
 import firebase from "firebase";
 import { withFirebase } from "../components/Firebase";
-import profilePic from "./images/profile_placeholder.png";
 
 class MainChatting extends Component {
   state = {
@@ -14,15 +12,18 @@ class MainChatting extends Component {
 
   submitMessage = dataMessage => {
     this.props.firebase.saveMessage(dataMessage);
+    this.mainInput.value = "";
   };
 
+  handleChange = e => {
+    this.setState({
+      authUser: this.props.infor.authUser,
+      img: this.props.infor.img,
+      name: this.props.infor.name,
+      [e.target.id]: e.target.value
+    });
+  };
   render() {
-    var message = {
-      name: "tao la moi la phu ne",
-      text: "hello lai m nha",
-      img: profilePic
-    };
-
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div
@@ -40,9 +41,11 @@ class MainChatting extends Component {
               <form id="message-form" action="#">
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input
+                    ref={ref => (this.mainInput = ref)}
                     className="mdl-textfield__input"
                     type="text"
-                    id="message"
+                    id="text"
+                    onChange={this.handleChange}
                   />
                   <label className="mdl-textfield__label">Message...</label>
                 </div>
@@ -50,7 +53,7 @@ class MainChatting extends Component {
                   id="submit"
                   type="submit"
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                  onClick={() => this.submitMessage(message)}
+                  onClick={() => this.submitMessage(this.state)}
                 >
                   Send
                 </button>

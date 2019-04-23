@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withFirebase } from "../components/Firebase";
 import profilePic from "./images/profile_placeholder.png";
-import { FirebaseContext } from "./Firebase";
 import firebase from "firebase";
 
 class navbar extends Component {
@@ -22,7 +21,7 @@ class navbar extends Component {
   };
 
   componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         this.setState({
           authUser,
