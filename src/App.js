@@ -18,8 +18,6 @@ class App extends Component {
     });
   };
   render() {
-    console.log(this.state);
-
     return (
       <div className="App">
         <div className="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">

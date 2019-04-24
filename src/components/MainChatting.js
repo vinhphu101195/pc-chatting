@@ -23,7 +23,12 @@ class MainChatting extends Component {
       [e.target.id]: e.target.value
     });
   };
+  // componentDidMount() {
+  //   this.props.firebase.loadMessages();
+  // }
   render() {
+    console.log(this.props.firebase.loadMessages());
+
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div
