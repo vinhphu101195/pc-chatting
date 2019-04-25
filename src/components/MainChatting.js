@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { withFirebase } from "../components/Firebase";
+import Message from "./Message";
 
 class MainChatting extends Component {
   state = {
@@ -41,7 +42,8 @@ class MainChatting extends Component {
           >
             <div className="mdl-card__supporting-text mdl-color-text--grey-600">
               <div id="messages">
-                <span id="message-filler" />
+                {/* <span id="message-filler" /> */}
+                <Message />
               </div>
               <form id="message-form" action="#">
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

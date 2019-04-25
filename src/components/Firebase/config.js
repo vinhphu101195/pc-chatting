@@ -135,31 +135,24 @@ class Firebase {
     var displayMess = [];
 
     // Start listening to the query.
-    query.onSnapshot(function(snapshot) {
-      console.log(snapshot.docChanges());
-      displayMess = snapshot.docChanges();
-      return displayMess;
-      // snapshot.docChanges().forEach(function(change) {
-      //   if (change.type === "removed") {
-      //     this.deleteMessage(change.doc.id);
-      //   } else {
-      //     var message = change.doc.data();
-      //     // console.log(message);
-      //     // console.log(change.doc.id);
-      //     displayMess = snapshot.docChanges();
-      //     // this.displayMessage(
-      //     //   change.doc.id,
-      //     //   message.timestamp,
-      //     //   message.name,
-      //     //   message.text,
-      //     //   message.profilePicUrl,
-      //     //   message.imageUrl
-      //     // );
-      //   }
-      // });
-    });
+    // query.onSnapshot(function(snapshot) {
+    //   snapshot.docChanges().forEach(function(change) {
+    //     if (change.type === "removed") {
+    //       this.deleteMessage(change.doc.id);
+    //     } else {
+    //       var message = change.doc.data();
 
-    return query;
+    //       displayMessage(
+    //         change.doc.id,
+    //         message.timestamp,
+    //         message.name,
+    //         message.text,
+    //         message.profilePicUrl,
+    //         message.imageUrl
+    //       );
+    //     }
+    //   });
+    // });
   }
 }
 
