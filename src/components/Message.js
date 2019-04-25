@@ -1,13 +1,15 @@
 import React from "react";
 
-export default function Message() {
+export default function Message(props) {
+  console.log(props.message);
+
   return (
-    <div class="message-container">
-      <div class="spacing">
-        <div class="pic" />
+    <div className="message-container">
+      <div className="spacing">
+        <div className="pic" />
       </div>
-      <div class="message">' hello ' </div>
-      <div class="name">Phu Chau </div>
+      <div className="message">' hello ' </div>
+      <div className="name">Phu Chau </div>
     </div>
   );
 }

@@ -11,6 +11,15 @@ class MainChatting extends Component {
     text: ""
   };
 
+  messageListElement = this.refs.messages;
+  messageInputElement = this.refs.message;
+  MESSAGE_TEMPLATE = `
+    '<div class="message-container">' 
+    '<div class="spacing"><div class="pic"></div></div>' 
+    '<div class="message" ref="message"></div>' 
+    '<div class="name"></div>' 
+    "</div>"`;
+
   submitMessage = dataMessage => {
     this.props.firebase.saveMessage(dataMessage);
     this.mainInput.value = "";
@@ -24,11 +33,66 @@ class MainChatting extends Component {
       [e.target.id]: e.target.value
     });
   };
-  // componentDidMount() {
-  //   this.props.firebase.loadMessages();
-  // }
+
   render() {
-    console.log(this.props.firebase.loadMessages());
+    const displayMessage = (id, timestamp, name, text, picUrl, imageUrl) => {
+      var div = document.getElementById(id);
+      // If an element for that message does not exists yet we create it.
+      if (!div) {
+        var container = document.createElement("div");
+        container.innerHTML = this.MESSAGE_TEMPLATE;
+        div = container.firstChild;
+        div.setAttribute("id", id);
+        div.setAttribute("timestamp", timestamp);
+        for (var i = 0; i < this.messageListElement.children.length; i++) {
+          var child = this.messageListElement.children[i];
+          var time = child.getAttribute("timestamp");
+          if (time && time > timestamp) {
+            break;
+          }
+        }
+        this.messageListElement.insertBefore(div, child);
+      }
+      if (picUrl) {
+        div.querySelector(".pic").style.backgroundImage =
+          "url(" + this.addSizeToGoogleProfilePic(picUrl) + ")";
+      }
+      div.querySelector(".name").textContent = name;
+      var messageElement = div.querySelector(".message");
+      if (text) {
+        // If the message is text.
+        messageElement.textContent = text;
+        // Replace all line breaks by <br>.
+        messageElement.innerHTML = messageElement.innerHTML.replace(
+          /\n/g,
+          "<br>"
+        );
+      } else if (imageUrl) {
+        // If the message is an image.
+        var image = document.createElement("img");
+        image.addEventListener("load", function() {
+          this.messageListElement.scrollTop = this.messageListElement.scrollHeight;
+        });
+        image.src = imageUrl + "&" + new Date().getTime();
+        messageElement.innerHTML = "";
+        messageElement.appendChild(image);
+      }
+      // Show the card fading-in and scroll to view the new message.
+      setTimeout(function() {
+        div.classList.add("visible");
+      }, 1);
+      this.messageListElement.scrollTop = this.messageListElement.scrollHeight;
+      this.messageInputElement.focus();
+    };
+    var Phu = [];
+    const showMessage = () => {
+      this.props.firebase.loadMessages().onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
+          var message = change.doc.data();
+          Phu.push(message);
+        });
+      });
+    };
 
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
@@ -41,9 +105,11 @@ class MainChatting extends Component {
             className="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop"
           >
             <div className="mdl-card__supporting-text mdl-color-text--grey-600">
-              <div id="messages">
+              <div id="messages" ref="messages">
                 {/* <span id="message-filler" /> */}
-                <Message />
+                {showMessage()}
+
+                <Message message={Phu} />
               </div>
               <form id="message-form" action="#">
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
