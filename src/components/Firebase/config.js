@@ -74,25 +74,6 @@ class Firebase {
       .orderBy("timestamp", "desc")
       .limit(12);
 
-    // Start listening to the query.
-    // query.onSnapshot(function(snapshot) {
-    //   snapshot.docChanges().forEach(function(change) {
-    //     if (change.type === "removed") {
-    //       this.deleteMessage(change.doc.id);
-    //     } else {
-    //       var message = change.doc.data();
-
-    //       displayMessage(
-    //         change.doc.id,
-    //         message.timestamp,
-    //         message.name,
-    //         message.text,
-    //         message.profilePicUrl,
-    //         message.imageUrl
-    //       );
-    //     }
-    //   });
-    // });
     return query;
   }
 }

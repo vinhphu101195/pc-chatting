@@ -6,10 +6,10 @@ export default function Message(props) {
   return (
     <div className="message-container">
       <div className="spacing">
-        <div className="pic" />
+        <img className="pic" src={props.message.img} alt="user avatar" />
       </div>
-      <div className="message">' hello ' </div>
-      <div className="name">Phu Chau </div>
+      <div className="message">{props.message.text} </div>
+      <div className="name">{props.message.name} </div>
     </div>
   );
 }
