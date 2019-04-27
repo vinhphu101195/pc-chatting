@@ -72,7 +72,7 @@ class Firebase {
     var query = firebase
       .firestore()
       .collection("message")
-      .orderBy("timestamp", "desc")
+      .orderBy("timestamp")
       .limit(12);
 
     return query;
