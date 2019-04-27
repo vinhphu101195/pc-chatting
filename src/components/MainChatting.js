@@ -11,7 +11,7 @@ class MainChatting extends Component {
     name: this.props.infor.name,
     text: "",
     Phu: [],
-    id: ""
+    id: []
   };
 
   messageListElement = this.refs.messages;
@@ -42,8 +42,9 @@ class MainChatting extends Component {
       snapshot.docChanges().forEach(change => {
         var message = change.doc.data();
         var joined = this.state.Phu.concat(message);
+        var joined2 = this.state.id.concat(change.doc.id);
         this.setState({
-          id: change.doc.id,
+          id: joined2,
           Phu: joined
         });
       });
@@ -56,7 +57,7 @@ class MainChatting extends Component {
       result = messages.map((message, index) => {
         return (
           <Message
-            id={id}
+            id={id[index]}
             key={index}
             message={message}
             index={index}
