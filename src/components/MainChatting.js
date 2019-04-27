@@ -43,10 +43,13 @@ class MainChatting extends Component {
         var message = change.doc.data();
         var joined = this.state.Phu.concat(message);
         var joined2 = this.state.id.concat(change.doc.id);
-        this.setState({
-          id: joined2,
-          Phu: joined
-        });
+        console.log(joined2);
+        if (this.state.id.includes(change.doc.id) === false) {
+          this.setState({
+            id: joined2,
+            Phu: joined
+          });
+        }
       });
     });
   }
@@ -55,15 +58,19 @@ class MainChatting extends Component {
     var result = null;
     if (messages.length > 0) {
       result = messages.map((message, index) => {
-        return (
-          <Message
-            id={id[index]}
-            key={index}
-            message={message}
-            index={index}
-            onDelete={this.onDelete}
-          />
-        );
+        if (this.state.id.includes(id) === false) {
+          return (
+            <Message
+              id={id[index]}
+              key={index}
+              message={message}
+              index={index}
+              onDelete={this.onDelete}
+            />
+          );
+        } else {
+          return "";
+        }
       });
     }
     return result;
