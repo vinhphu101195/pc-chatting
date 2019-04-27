@@ -10,7 +10,8 @@ class MainChatting extends Component {
     img: this.props.infor.img,
     name: this.props.infor.name,
     text: "",
-    Phu: []
+    Phu: [],
+    id: ""
   };
 
   messageListElement = this.refs.messages;
@@ -42,18 +43,20 @@ class MainChatting extends Component {
         var message = change.doc.data();
         var joined = this.state.Phu.concat(message);
         this.setState({
+          id: change.doc.id,
           Phu: joined
         });
       });
     });
   }
 
-  showMessage(messages) {
+  showMessage(messages, id) {
     var result = null;
     if (messages.length > 0) {
       result = messages.map((message, index) => {
         return (
           <Message
+            id={id}
             key={index}
             message={message}
             index={index}
@@ -79,7 +82,7 @@ class MainChatting extends Component {
             <div className="mdl-card__supporting-text mdl-color-text--grey-600">
               <div id="messages" ref="messages">
                 {/* <span id="message-filler" /> */}
-                {this.showMessage(this.state.Phu)}
+                {this.showMessage(this.state.Phu, this.state.id)}
 
                 {/* <Message message={this.state.Phu} /> */}
               </div>
