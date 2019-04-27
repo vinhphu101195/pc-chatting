@@ -29,6 +29,7 @@ class Firebase {
   doSignOut = () => this.auth.signOut();
 
   saveMessage(dataobject) {
+    var current = firebase.firestore.FieldValue.serverTimestamp();
     return firebase
       .firestore()
       .collection("message")
@@ -36,7 +37,7 @@ class Firebase {
         name: dataobject.name,
         text: dataobject.text,
         img: dataobject.img,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: current
       })
       .then(() => {
         console.log("success");
