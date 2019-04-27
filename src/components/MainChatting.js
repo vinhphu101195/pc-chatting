@@ -82,6 +82,10 @@ class MainChatting extends Component {
   }
 
   render() {
+    var mediaCaptureElement = document.getElementById("mediaCapture");
+
+    console.log(mediaCaptureElement);
+
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div
@@ -123,13 +127,13 @@ class MainChatting extends Component {
                 <input
                   id="mediaCapture"
                   type="file"
-                  name="pic"
                   accept="image/*"
                   capture="camera"
                 />
                 <button
                   id="submitImage"
                   title="Add an image"
+                  type="submit"
                   onClick={event => this.submitFile(event)}
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white"
                 >
