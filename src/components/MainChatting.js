@@ -23,9 +23,14 @@ class MainChatting extends Component {
     '<div class="name"></div>' 
     "</div>"`;
 
-  submitMessage = dataMessage => {
+  submitMessage = (event, dataMessage) => {
+    event.preventDefault();
     this.props.firebase.saveMessage(dataMessage);
     this.mainInput.value = "";
+  };
+
+  submitFile = event => {
+    event.preventDefault();
   };
 
   handleChange = e => {
@@ -109,7 +114,7 @@ class MainChatting extends Component {
                   id="submit"
                   type="submit"
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                  onClick={() => this.submitMessage(this.state)}
+                  onClick={event => this.submitMessage(event, this.state)}
                 >
                   Send
                 </button>
@@ -118,12 +123,14 @@ class MainChatting extends Component {
                 <input
                   id="mediaCapture"
                   type="file"
+                  name="pic"
                   accept="image/*"
                   capture="camera"
                 />
                 <button
                   id="submitImage"
                   title="Add an image"
+                  onClick={event => this.submitFile(event)}
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white"
                 >
                   <i className="material-icons">image</i>
