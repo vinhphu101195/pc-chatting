@@ -34,6 +34,7 @@ class Firebase {
       .collection("message")
       .add({
         name: dataobject.name,
+        imageUrl: null,
         text: dataobject.text,
         img: dataobject.img,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()

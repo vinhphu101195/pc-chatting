@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import { withFirebase } from "../components/Firebase";
 import Message from "./Message";
-import axios from "axios";
+import MessageImg from "./MessageImg";
 
 class MainChatting extends Component {
   // constructor(props) {
@@ -64,8 +64,6 @@ class MainChatting extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.infor.authUser);
-
     this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         this.setState({
@@ -73,7 +71,6 @@ class MainChatting extends Component {
           img: firebase.auth().currentUser.photoURL,
           name: firebase.auth().currentUser.displayName
         });
-        this.props.giveParentData(this.state);
       } else {
         this.setState({ authUser: null, name: "" });
       }
@@ -95,19 +92,33 @@ class MainChatting extends Component {
   }
 
   showMessage(messages, id) {
+    console.log(messages);
+
     var result = null;
     if (messages.length > 0) {
       result = messages.map((message, index) => {
         if (this.state.id.includes(id) === false) {
-          return (
-            <Message
-              id={id[index]}
-              key={index}
-              message={message}
-              index={index}
-              onDelete={this.onDelete}
-            />
-          );
+          if (message.imageUrl != null) {
+            return (
+              <MessageImg
+                id={id[index]}
+                key={index}
+                message={message}
+                index={index}
+                onDelete={this.onDelete}
+              />
+            );
+          } else {
+            return (
+              <Message
+                id={id[index]}
+                key={index}
+                message={message}
+                index={index}
+                onDelete={this.onDelete}
+              />
+            );
+          }
         } else {
           return "";
         }
@@ -117,6 +128,8 @@ class MainChatting extends Component {
   }
 
   render() {
+    console.log(this.state.Phu);
+
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div

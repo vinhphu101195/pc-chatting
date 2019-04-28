@@ -210,3 +210,8 @@ main,
 ::-webkit-material-icons-spand {
   cursor: pointer;
 }
+
+.img-upload {
+  margin-top: 5px;
+  height: 15rem;
+}
