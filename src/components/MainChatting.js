@@ -11,7 +11,8 @@ class MainChatting extends Component {
     name: this.props.infor.name,
     text: "",
     Phu: [],
-    id: []
+    id: [],
+    file: null
   };
 
   messageListElement = this.refs.messages;
@@ -29,8 +30,31 @@ class MainChatting extends Component {
     this.mainInput.value = "";
   };
 
-  submitFile = event => {
-    event.preventDefault();
+  // submit file
+  onChange = e => {
+    this.setState({ file: e.target.files[0] });
+  };
+
+  onFormSubmit = e => {
+    e.preventDefault();
+    this.fileUpdate(this.state.file).then(respone => {
+      console.log(respone.data);
+    });
+    //console.log(this.state.file);
+  };
+
+  fileUpdate = file => {
+    const url = "http://example.com/file-upload";
+    const formData = new FormData();
+    formData.append("file", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data"
+      }
+    };
+    // return post(url, formData, config);
+    console.log(url);
+    console.log(formData);
   };
 
   handleChange = e => {
@@ -123,18 +147,18 @@ class MainChatting extends Component {
                   Send
                 </button>
               </form>
-              <form id="image-form" action="#">
+              <form id="image-form" onSubmit={this.onFormSubmit}>
                 <input
                   id="mediaCapture"
                   type="file"
                   accept="image/*"
                   capture="camera"
+                  onChange={this.onChange}
                 />
                 <button
                   id="submitImage"
                   title="Add an image"
                   type="submit"
-                  onClick={event => this.submitFile(event)}
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white"
                 >
                   <i className="material-icons">image</i>
