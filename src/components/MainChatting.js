@@ -5,13 +5,13 @@ import Message from "./Message";
 import axios from "axios";
 
 class MainChatting extends Component {
-  constructor(props) {
-    super(props);
-    this.fileInput = React.createRef;
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.fileInput = React.createRef;
+  // }
 
   state = {
-    authUser: this.props.infor.authUser,
+    authUser: null,
     img: this.props.infor.img,
     name: this.props.infor.name,
     text: "",
@@ -31,34 +31,54 @@ class MainChatting extends Component {
 
   submitMessage = (event, dataMessage) => {
     event.preventDefault();
-    this.props.firebase.saveMessage(dataMessage);
-    this.mainInput.value = "";
+
+    if (this.state.authUser != null) {
+      this.props.firebase.saveMessage(dataMessage);
+      this.mainInput.value = "";
+    } else {
+      alert("you have to login first");
+    }
   };
 
-  // submit file
-  // handeSubmit = e => {
-  //   e.preventDefault();
-  //   // alert(`selected file - ${this.fileInput.current.files[0].name}`);
-  //   console.log(this.fileInput.current);
-  // };
+  handleSubmitFile = e => {
+    e.preventDefault();
+  };
 
   handleChange = e => {
+    e.preventDefault();
     this.setState({
-      authUser: this.props.infor.authUser,
-      img: this.props.infor.img,
-      name: this.props.infor.name,
       [e.target.id]: e.target.value
     });
   };
 
   onChangeHandler = event => {
-    this.setState({
-      file: event.target.files[0]
-    });
-    console.log(event.target.files[0]);
+    if (this.state.authUser != null) {
+      this.setState({
+        file: event.target.files[0]
+      });
+      console.log(event.target.files[0]);
+      this.props.firebase.saveImageMessage(this.state, event.target.files[0]);
+    } else {
+      alert("you have to login first");
+    }
   };
 
   componentDidMount() {
+    console.log(this.props.infor.authUser);
+
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        this.setState({
+          authUser,
+          img: firebase.auth().currentUser.photoURL,
+          name: firebase.auth().currentUser.displayName
+        });
+        this.props.giveParentData(this.state);
+      } else {
+        this.setState({ authUser: null, name: "" });
+      }
+    });
+
     this.props.firebase.loadMessages().onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         var message = change.doc.data();
@@ -134,9 +154,8 @@ class MainChatting extends Component {
                   Send
                 </button>
               </form>
-              <form id="image-form" onSubmit={this.handeSubmit}>
+              <form id="image-form" onSubmit={this.handleSubmitFile}>
                 <span className="material-icons-spand">
-                  <i className="material-icons">image</i>
                   <input
                     id="mediaCapture"
                     type="file"
@@ -145,15 +164,14 @@ class MainChatting extends Component {
                     ref={this.fileInput}
                     onChange={this.onChangeHandler}
                   />
+                  <button
+                    id="submitImage"
+                    title="Add an image"
+                    className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white"
+                  >
+                    <i className="material-icons">image</i>
+                  </button>
                 </span>
-                {/* <button
-                  id="submitImage"
-                  title="Add an image"
-                  type="submit"
-                  className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white"
-                > */}
-                {/* <i className="material-icons">image</i> */}
-                {/* </button> */}
               </form>
             </div>
           </div>

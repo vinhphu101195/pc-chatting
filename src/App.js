@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-          <Navbar giveParentData={this.giveParentData} />
+          <Navbar giveParentData={data => this.giveParentData(data)} />
           <MainChatting infor={this.state} />
         </div>
       </div>

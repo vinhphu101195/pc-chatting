@@ -83,11 +83,11 @@ class Firebase {
     // 1 - We add a message with a loading icon that will get updated with the shared image.
     firebase
       .firestore()
-      .collection("messages")
+      .collection("message")
       .add({
         name: dataobject.name,
         imageUrl: "https://www.google.com/images/spin-32.gif?a",
-        profilePicUrl: dataobject.img,
+        img: dataobject.img,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(function(messageRef) {
@@ -112,6 +112,7 @@ class Firebase {
               });
             });
           });
+        console.log("upload file success");
       })
       .catch(function(error) {
         console.error(
