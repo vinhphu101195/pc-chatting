@@ -5,6 +5,11 @@ import Message from "./Message";
 import axios from "axios";
 
 class MainChatting extends Component {
+  constructor(props) {
+    super(props);
+    this.fileInput = React.createRef;
+  }
+
   state = {
     authUser: this.props.infor.authUser,
     img: this.props.infor.img,
@@ -12,7 +17,7 @@ class MainChatting extends Component {
     text: "",
     Phu: [],
     id: [],
-    file: null
+    file: React.createRef
   };
 
   messageListElement = this.refs.messages;
@@ -31,31 +36,11 @@ class MainChatting extends Component {
   };
 
   // submit file
-  onChange = e => {
-    this.setState({ file: e.target.files[0] });
-  };
-
-  onFormSubmit = e => {
-    e.preventDefault();
-    this.fileUpdate(this.state.file).then(respone => {
-      console.log(respone.data);
-    });
-    //console.log(this.state.file);
-  };
-
-  fileUpdate = file => {
-    const url = "http://example.com/file-upload";
-    const formData = new FormData();
-    formData.append("file", file);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data"
-      }
-    };
-    // return post(url, formData, config);
-    console.log(url);
-    console.log(formData);
-  };
+  // handeSubmit = e => {
+  //   e.preventDefault();
+  //   // alert(`selected file - ${this.fileInput.current.files[0].name}`);
+  //   console.log(this.fileInput.current);
+  // };
 
   handleChange = e => {
     this.setState({
@@ -66,13 +51,19 @@ class MainChatting extends Component {
     });
   };
 
+  onChangeHandler = event => {
+    this.setState({
+      file: event.target.files[0]
+    });
+    console.log(event.target.files[0]);
+  };
+
   componentDidMount() {
     this.props.firebase.loadMessages().onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         var message = change.doc.data();
         var joined = this.state.Phu.concat(message);
         var joined2 = this.state.id.concat(change.doc.id);
-        console.log(joined2);
         if (this.state.id.includes(change.doc.id) === false) {
           this.setState({
             id: joined2,
@@ -106,10 +97,6 @@ class MainChatting extends Component {
   }
 
   render() {
-    var mediaCaptureElement = document.getElementById("mediaCapture");
-
-    console.log(mediaCaptureElement);
-
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div
@@ -147,22 +134,26 @@ class MainChatting extends Component {
                   Send
                 </button>
               </form>
-              <form id="image-form" onSubmit={this.onFormSubmit}>
-                <input
-                  id="mediaCapture"
-                  type="file"
-                  accept="image/*"
-                  capture="camera"
-                  onChange={this.onChange}
-                />
-                <button
+              <form id="image-form" onSubmit={this.handeSubmit}>
+                <span className="material-icons-spand">
+                  <i className="material-icons">image</i>
+                  <input
+                    id="mediaCapture"
+                    type="file"
+                    accept="image/*"
+                    capture="camera"
+                    ref={this.fileInput}
+                    onChange={this.onChangeHandler}
+                  />
+                </span>
+                {/* <button
                   id="submitImage"
                   title="Add an image"
                   type="submit"
                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white"
-                >
-                  <i className="material-icons">image</i>
-                </button>
+                > */}
+                {/* <i className="material-icons">image</i> */}
+                {/* </button> */}
               </form>
             </div>
           </div>

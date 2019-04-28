@@ -24,8 +24,10 @@ main,
 }
 .material-icons {
   font-size: 36px;
-  top: 8px;
+  top: 18px;
+  left: 10px;
   position: relative;
+  cursor: pointer;
 }
 .mdl-layout__header-row {
   padding: 0;
@@ -155,7 +157,14 @@ main,
   max-height: 200px;
 }
 #mediaCapture {
-  display: none;
+  /* display: none; */
+  z-index: 99999;
+  opacity: 0;
+  position: absolute;
+  top: 65%;
+  left: 4%;
+
+  cursor: pointer;
 }
 @media screen and (max-width: 610px) {
   header {
@@ -184,9 +193,20 @@ main,
 }
 .mdl-button .material-icons {
   top: -1px;
-  margin-right: 5px;
+  margin-right: 20px;
 }
 
 .auth-img {
   height: 3.4rem;
+}
+
+.material-icons-spand {
+  /* background-image: url(https://cdn0.iconfinder.com/data/icons/interface-10/128/_upload_image-512.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: 0 -1704px; */
+  position: relative;
+}
+::-webkit-material-icons-spand {
+  cursor: pointer;
 }
