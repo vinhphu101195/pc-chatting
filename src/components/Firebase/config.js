@@ -88,7 +88,7 @@ class Firebase {
         .collection("message")
         .add({
           name: dataobject.name,
-          imageUrl: "https://www.google.com/images/spin-32.gif?a",
+          imageUrl: null,
           img: dataobject.img,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })

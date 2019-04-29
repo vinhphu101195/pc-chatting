@@ -17,7 +17,8 @@ class MainChatting extends Component {
     text: "",
     Phu: [],
     id: [],
-    file: React.createRef
+    file: React.createRef,
+    loader: false
   };
 
   messageListElement = this.refs.messages;
@@ -54,9 +55,9 @@ class MainChatting extends Component {
   onChangeHandler = event => {
     if (this.state.authUser != null) {
       this.setState({
-        file: event.target.files[0]
+        file: event.target.files[0],
+        loader: true
       });
-      console.log(event.target.files[0]);
       this.props.firebase.saveImageMessage(this.state, event.target.files[0]);
     } else {
       alert("you have to login first");
@@ -79,6 +80,7 @@ class MainChatting extends Component {
     this.props.firebase.loadMessages().onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         var message = change.doc.data();
+        //push mesage to Phu
         var joined = this.state.Phu.concat(message);
         var joined2 = this.state.id.concat(change.doc.id);
         if (this.state.id.includes(change.doc.id) === false) {
@@ -92,8 +94,6 @@ class MainChatting extends Component {
   }
 
   showMessage(messages, id) {
-    console.log(messages);
-
     var result = null;
     if (messages.length > 0) {
       result = messages.map((message, index) => {
@@ -106,6 +106,7 @@ class MainChatting extends Component {
                 message={message}
                 index={index}
                 onDelete={this.onDelete}
+                loader={this.state.loader}
               />
             );
           } else {
@@ -128,8 +129,6 @@ class MainChatting extends Component {
   }
 
   render() {
-    console.log(this.state.Phu);
-
     return (
       <main className="mdl-layout__content mdl-color--grey-100">
         <div
