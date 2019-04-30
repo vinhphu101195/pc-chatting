@@ -35,9 +35,9 @@ class navbar extends Component {
     });
   }
 
-  componentWillUnmount() {
-    this.listener();
-  }
+  // componentWillUnmount() {
+  //   this.listener();
+  // }
 
   render() {
     return (

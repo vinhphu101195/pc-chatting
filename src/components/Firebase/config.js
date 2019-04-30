@@ -74,6 +74,7 @@ class Firebase {
       .collection("message")
       .orderBy("timestamp")
       .limit(12);
+    console.log(query);
 
     return query;
   }
@@ -88,7 +89,7 @@ class Firebase {
         .collection("message")
         .add({
           name: dataobject.name,
-          imageUrl: null,
+          imageUrl: "https://www.google.com/images/spin-32.gif?a",
           img: dataobject.img,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })

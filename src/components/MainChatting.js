@@ -83,21 +83,22 @@ class MainChatting extends Component {
         //push mesage to Phu
         var joined = this.state.Phu.concat(message);
         var joined2 = this.state.id.concat(change.doc.id);
-        if (this.state.id.includes(change.doc.id) === false) {
-          this.setState({
-            id: joined2,
-            Phu: joined
-          });
-        }
+        // if (this.state.id.includes(change.doc.id) === false) {
+        this.setState({
+          id: joined2,
+          Phu: joined
+        });
+        // }
       });
     });
   }
 
   showMessage(messages, id) {
     var result = null;
+    var a = [];
     if (messages.length > 0) {
       result = messages.map((message, index) => {
-        if (this.state.id.includes(id) === false) {
+        if (a.includes(id[index]) === false) {
           if (message.imageUrl != null) {
             return (
               <MessageImg
@@ -110,6 +111,8 @@ class MainChatting extends Component {
               />
             );
           } else {
+            a.push(id[index]);
+
             return (
               <Message
                 id={id[index]}
@@ -120,8 +123,6 @@ class MainChatting extends Component {
               />
             );
           }
-        } else {
-          return "";
         }
       });
     }
