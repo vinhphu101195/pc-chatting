@@ -76,53 +76,45 @@ class MainChatting extends Component {
         this.setState({ authUser: null, name: "" });
       }
     });
-
+    var index1;
     this.props.firebase.loadMessages().onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
+      snapshot.docChanges().forEach((change, index) => {
         var message = change.doc.data();
         //push mesage to Phu
         var joined = this.state.Phu.concat(message);
         var joined2 = this.state.id.concat(change.doc.id);
-        // if (this.state.id.includes(change.doc.id) === false) {
-        this.setState({
-          id: joined2,
-          Phu: joined
-        });
-        // }
+        // have to cahnge here
+        if (this.state.id.includes(change.doc.id) === false) {
+          this.setState({
+            id: joined2,
+            Phu: joined
+          });
+        } else {
+          index1 = joined.lastIndexOf(message);
+          joined.splice(index1 - 1, 2, message);
+          this.setState({
+            Phu: joined
+          });
+        }
       });
     });
   }
 
   showMessage(messages, id) {
     var result = null;
-    var a = [];
     if (messages.length > 0) {
       result = messages.map((message, index) => {
-        if (a.includes(id[index]) === false) {
-          if (message.imageUrl != null) {
-            return (
-              <MessageImg
-                id={id[index]}
-                key={index}
-                message={message}
-                index={index}
-                onDelete={this.onDelete}
-                loader={this.state.loader}
-              />
-            );
-          } else {
-            a.push(id[index]);
-
-            return (
-              <Message
-                id={id[index]}
-                key={index}
-                message={message}
-                index={index}
-                onDelete={this.onDelete}
-              />
-            );
-          }
+        if (message.imageUrl != null) {
+          return (
+            <MessageImg
+              id={id[index]}
+              key={index}
+              message={message}
+              loader={this.state.loader}
+            />
+          );
+        } else {
+          return <Message id={id[index]} key={index} message={message} />;
         }
       });
     }

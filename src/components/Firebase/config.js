@@ -74,7 +74,6 @@ class Firebase {
       .collection("message")
       .orderBy("timestamp")
       .limit(12);
-    console.log(query);
 
     return query;
   }
