@@ -88,11 +88,15 @@ class Firebase {
         .collection("message")
         .add({
           name: dataobject.name,
-          imageUrl: "https://www.google.com/images/spin-32.gif?a",
+          // imageUrl: "https://www.google.com/images/spin-32.gif?a",
+          imageUrl: null,
+
           img: dataobject.img,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(function(messageRef) {
+          console.log("img success");
+
           // 2 - Upload the image to Cloud Storage.
           var filePath =
             firebase.auth().currentUser.uid +

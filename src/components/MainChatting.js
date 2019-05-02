@@ -81,21 +81,44 @@ class MainChatting extends Component {
       snapshot.docChanges().forEach((change, index) => {
         var message = change.doc.data();
         //push mesage to Phu
-        var joined = this.state.Phu.concat(message);
-        var joined2 = this.state.id.concat(change.doc.id);
-        // have to cahnge here
         if (this.state.id.includes(change.doc.id) === false) {
+          var joined = this.state.Phu.concat(message);
+          var joined2 = this.state.id.concat(change.doc.id);
           this.setState({
             id: joined2,
             Phu: joined
           });
-        } else {
+        } else if (
+          this.state.id.includes(change.doc.id) === true &&
+          message.imageUrl !== null
+        ) {
+          var joined2 = this.state.id.concat(change.doc.id);
+          var joined = this.state.Phu.concat(message);
           index1 = joined.lastIndexOf(message);
+          console.log(joined);
+          console.log(index1);
+
           joined.splice(index1 - 1, 2, message);
+          console.log(joined);
+
           this.setState({
+            id: joined2,
             Phu: joined
           });
         }
+        // // have to cahnge here
+        // if (this.state.id.includes(change.doc.id) === false) {
+        //   this.setState({
+        //     id: joined2,
+        //     Phu: joined
+        //   });
+        // } else {
+        //   index1 = joined.lastIndexOf(message);
+        //   joined.splice(index1 - 1, 2, message);
+        //   this.setState({
+        //     Phu: joined
+        //   });
+        // }
       });
     });
   }
