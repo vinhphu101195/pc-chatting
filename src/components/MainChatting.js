@@ -90,12 +90,7 @@ class MainChatting extends Component {
           var joined2 = this.state.id.concat(change.doc.id);
           var joined = this.state.Phu.concat(message);
           index1 = joined.lastIndexOf(message);
-          console.log(joined);
-          console.log(index1);
-
           joined.splice(index1 - 1, 2, message);
-          console.log(joined);
-
           this.setState({
             id: joined2,
             Phu: joined
