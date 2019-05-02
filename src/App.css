@@ -201,10 +201,6 @@ main,
 }
 
 .material-icons-spand {
-  /* background-image: url(https://cdn0.iconfinder.com/data/icons/interface-10/128/_upload_image-512.png);
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-position: 0 -1704px; */
   position: relative;
 }
 ::-webkit-material-icons-spand {

@@ -35,10 +35,6 @@ class navbar extends Component {
     });
   }
 
-  // componentWillUnmount() {
-  //   this.listener();
-  // }
-
   render() {
     return (
       <header className="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
@@ -77,14 +73,6 @@ class navbar extends Component {
                 Google
               </button>
             )}
-            {/* <button
-                    id="sign-in"
-                    className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
-                    onClick={event => this.SignIn()}
-                  >
-                    <i className="material-icons">account_circle</i>Sign-in with
-                    Google
-                  </button> */}
             <button
               hidden
               id="sign-out"

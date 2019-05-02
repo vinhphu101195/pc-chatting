@@ -9,18 +9,6 @@ export default class MessageImg extends Component {
     imageUrl: this.props.message.imageUrl
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.id === this.state.id) {
-      this.setState({});
-
-      // if (nextProps.message.imageUrl !== this.props.message.imageUrl) {
-      //   this.setState((state, props) => ({
-      //     imageUrl: nextProps.message.imageUrl
-      //   }));
-      // }
-    }
-  }
-
   render() {
     return (
       <div className="message-container" id={this.state.id}>

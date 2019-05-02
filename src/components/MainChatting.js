@@ -5,11 +5,6 @@ import Message from "./Message";
 import MessageImg from "./MessageImg";
 
 class MainChatting extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.fileInput = React.createRef;
-  // }
-
   state = {
     authUser: null,
     img: this.props.infor.img,
@@ -106,19 +101,6 @@ class MainChatting extends Component {
             Phu: joined
           });
         }
-        // // have to cahnge here
-        // if (this.state.id.includes(change.doc.id) === false) {
-        //   this.setState({
-        //     id: joined2,
-        //     Phu: joined
-        //   });
-        // } else {
-        //   index1 = joined.lastIndexOf(message);
-        //   joined.splice(index1 - 1, 2, message);
-        //   this.setState({
-        //     Phu: joined
-        //   });
-        // }
       });
     });
   }
