@@ -77,8 +77,8 @@ class MainChatting extends Component {
         var message = change.doc.data();
         //push mesage to Phu
         if (this.state.id.includes(change.doc.id) === false) {
-          var joined = this.state.Phu.concat(message);
-          var joined2 = this.state.id.concat(change.doc.id);
+          let joined = this.state.Phu.concat(message);
+          let joined2 = this.state.id.concat(change.doc.id);
           this.setState({
             id: joined2,
             Phu: joined
@@ -87,8 +87,8 @@ class MainChatting extends Component {
           this.state.id.includes(change.doc.id) === true &&
           message.imageUrl !== null
         ) {
-          var joined2 = this.state.id.concat(change.doc.id);
-          var joined = this.state.Phu.concat(message);
+          let joined2 = this.state.id.concat(change.doc.id);
+          let joined = this.state.Phu.concat(message);
           index1 = joined.lastIndexOf(message);
           joined.splice(index1 - 1, 2, message);
           this.setState({
