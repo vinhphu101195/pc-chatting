@@ -26,6 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 
 
-# firebase.json
-# /functions
+firebase.json
+/functions
 
